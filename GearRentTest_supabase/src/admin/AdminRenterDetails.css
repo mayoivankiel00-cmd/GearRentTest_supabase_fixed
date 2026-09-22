@@ -7,7 +7,7 @@
   text-decoration: none;
 }
 
-.admin-detail-back:hover { color: var(--accent-soft); }
+.admin-detail-back:hover { color: var(--accent); }
 .admin-detail-back-button { padding: 0; cursor: pointer; }
 
 .admin-detail-heading {
@@ -24,7 +24,7 @@
 .admin-detail-stats { display: grid; grid-template-columns: repeat(4, 1fr); gap: 1rem; margin-bottom: 1rem; }
 .admin-detail-stat { padding: 1.1rem; background: linear-gradient(145deg, color-mix(in srgb, var(--bg-card) 92%, #1c2925), var(--bg-card)); }
 .admin-detail-stat span { display: block; margin-bottom: 0.65rem; color: var(--text-dim); font-size: 0.68rem; text-transform: uppercase; }
-.admin-detail-stat strong { color: var(--accent-soft); font-family: var(--font-mono); font-size: 1.35rem; }
+.admin-detail-stat strong { color: var(--accent); font-family: var(--font-mono); font-size: 1.35rem; }
 
 .admin-detail-grid { display: grid; grid-template-columns: 1.35fr 1fr; gap: 1rem; margin-bottom: 1rem; }
 .admin-detail-chart-card, .admin-detail-inventory-card, .admin-detail-rentals-card { padding: 1.2rem; box-shadow: 0 14px 30px rgb(0 0 0 / 10%); }
@@ -43,7 +43,7 @@
 .admin-detail-rental-row { grid-template-columns: 1fr auto auto; }
 .admin-detail-rental-row strong:first-child { display: block; }
 .admin-detail-rental-row span { display: block; margin-top: 0.3rem; color: var(--text-dim); font-size: 0.68rem; }
-.admin-detail-rental-row > strong:last-child { color: var(--accent-soft); font-family: var(--font-mono); }
+.admin-detail-rental-row > strong:last-child { color: var(--accent); font-family: var(--font-mono); }
 .admin-detail-status { margin: 0 !important; color: var(--success) !important; text-transform: capitalize; }
 .admin-detail-status.overdue { color: var(--accent) !important; }
 

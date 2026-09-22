@@ -16,7 +16,7 @@
   transition: border-color 0.15s ease, background 0.15s ease, transform 0.1s ease;
 }
 
-.image-dropzone:hover { border-color: var(--accent-soft); }
+.image-dropzone:hover { border-color: var(--accent); }
 
 .image-dropzone.is-dragging {
   border-color: var(--accent);
@@ -37,7 +37,7 @@
 
 .image-dropzone-icon {
   font-size: 1.4rem;
-  color: var(--accent-soft);
+  color: var(--accent);
 }
 
 .image-dropzone.is-uploading .image-dropzone-icon { animation: image-dropzone-spin 0.9s linear infinite; }

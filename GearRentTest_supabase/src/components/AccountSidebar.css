@@ -32,14 +32,14 @@
 }
 
 .sidebar-nav a:hover {
-  color: var(--text);
-  background: var(--bg-raised);
+  color: var(--accent);
+  background: var(--accent-soft);
 }
 
 .sidebar-nav a.active {
-  color: var(--text);
-  background: var(--bg-card);
-  border: 1px solid var(--border);
+  color: var(--accent);
+  background: var(--accent-soft);
+  border: 1px solid var(--accent);
 }
 
 @media (max-width: 900px) {

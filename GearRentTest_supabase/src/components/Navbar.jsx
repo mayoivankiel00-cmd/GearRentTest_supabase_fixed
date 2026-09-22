@@ -1,4 +1,5 @@
 import { useEffect, useState } from 'react';
+import { googleLogout } from '@react-oauth/google';
 import { Link, NavLink, useNavigate } from 'react-router-dom';
 import { useAuth } from '../AuthContext';
 import { useCart } from '../CartContext';
@@ -27,6 +28,7 @@ export default function Navbar() {
     .toUpperCase();
 
   const handleSignOut = () => {
+    if (user?.provider === 'google') googleLogout();
     signOut();
     navigate('/');
   };
@@ -98,7 +100,7 @@ export default function Navbar() {
           </button>
           {isAuthenticated && (
             <Link to="/profile" className="navbar-user" aria-label={`View ${userName}'s profile`}>
-              <span className="navbar-user-avatar" aria-hidden="true">{userInitials}</span>
+              {user?.picture ? <img className="navbar-user-avatar" src={user.picture} alt="" /> : <span className="navbar-user-avatar" aria-hidden="true">{userInitials}</span>}
               <span className="navbar-user-name">{userName}</span>
             </Link>
           )}

@@ -130,7 +130,7 @@
 
 .payment-item strong,
 .payment-total strong {
-  color: var(--accent-soft);
+  color: var(--accent);
   font-family: var(--font-mono);
   white-space: nowrap;
 }

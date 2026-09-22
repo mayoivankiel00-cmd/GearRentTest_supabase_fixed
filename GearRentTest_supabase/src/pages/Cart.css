@@ -86,7 +86,7 @@
 }
 
 .cart-item-product:hover .cart-item-info h3 {
-  color: var(--accent-soft);
+  color: var(--accent);
 }
 
 .cart-product-modal-backdrop {
@@ -200,7 +200,7 @@
 }
 
 .cart-product-modal-price-row strong {
-  color: var(--accent-soft);
+  color: var(--accent);
   font-family: var(--font-mono);
   font-size: 1.15rem;
 }
@@ -356,7 +356,7 @@
 
 .cart-calendar-cell.selected {
   background: var(--accent);
-  color: #fff;
+  color: var(--on-accent, #fff);
 }
 
 .cart-calendar-hint {
@@ -413,7 +413,7 @@
 }
 
 .cart-product-modal-close:hover {
-  color: var(--accent-soft);
+  color: var(--accent);
 }
 
 .cart-item-dates {

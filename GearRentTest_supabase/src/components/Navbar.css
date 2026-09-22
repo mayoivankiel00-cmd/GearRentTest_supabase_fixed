@@ -8,7 +8,8 @@
 }
 
 :root[data-theme='light'] .navbar {
-  background: rgba(164, 165, 161, 0.94);
+  background: var(--ink);
+  border-bottom-color: var(--ink);
 }
 
 .navbar-inner {
@@ -23,8 +24,12 @@
   font-weight: 800;
   font-size: 1.25rem;
   letter-spacing: -0.01em;
-  color: var(--accent-soft);
+  color: var(--accent);
   white-space: nowrap;
+}
+
+:root[data-theme='light'] .navbar-logo {
+  color: var(--accent);
 }
 
 .navbar-links {
@@ -47,7 +52,28 @@
 
 .navbar-links a.active {
   color: var(--text);
-  border-bottom-color: var(--accent-soft);
+  border-bottom-color: var(--accent);
+}
+
+:root[data-theme='light'] .navbar-links a,
+:root[data-theme='light'] .navbar-cart,
+:root[data-theme='light'] .navbar-login,
+:root[data-theme='light'] .navbar-signout,
+:root[data-theme='light'] .navbar-user-name {
+  color: var(--on-ink-muted);
+}
+
+:root[data-theme='light'] .navbar-links a:hover,
+:root[data-theme='light'] .navbar-links a.active,
+:root[data-theme='light'] .navbar-cart:hover,
+:root[data-theme='light'] .navbar-login:hover,
+:root[data-theme='light'] .navbar-signout:hover,
+:root[data-theme='light'] .navbar-user:hover .navbar-user-name {
+  color: var(--on-ink);
+}
+
+:root[data-theme='light'] .navbar-links a.active {
+  border-bottom-color: var(--accent);
 }
 
 .navbar-actions {
@@ -80,7 +106,7 @@
   padding: 0 0.3rem;
   border-radius: 999px;
   background: var(--accent);
-  color: #fff;
+  color: var(--on-accent, #fff);
   font-family: var(--font-display);
   font-size: 0.68rem;
   font-weight: 800;
@@ -114,10 +140,10 @@
   border: 1px solid var(--accent);
   border-radius: 50%;
   background: var(--accent);
-  color: #fff;
-  color: var(--accent-soft);
+  color: var(--on-accent, #fff);
   font-size: 0.65rem;
   font-weight: 700;
+  object-fit: cover;
 }
 
 .navbar-user-name {
@@ -146,7 +172,7 @@
 }
 
 .navbar-signout:hover {
-  color: var(--accent-soft);
+  color: var(--accent);
 }
 
 .navbar-theme-toggle {

@@ -85,7 +85,7 @@
 }
 
 .order-id {
-  color: var(--accent-soft);
+  color: var(--accent);
   white-space: nowrap;
 }
 
@@ -150,7 +150,7 @@
 
 .pg-btn.active-page {
   border-color: var(--accent);
-  color: var(--accent-soft);
+  color: var(--accent);
 }
 
 @media (max-width: 760px) {

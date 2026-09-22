@@ -7,10 +7,10 @@
 }
 
 .admin-gear-back { display: inline-block; margin-bottom: 0.8rem; color: var(--text-muted); font-size: 0.7rem; }
-.admin-gear-back:hover { color: var(--accent-soft); }
+.admin-gear-back:hover { color: var(--accent); }
 .admin-gear-heading .admin-title { margin-bottom: 0; }
 .admin-gear-subtitle { margin: 0.5rem 0 0; color: var(--text-muted); }
-.admin-gear-count { color: var(--accent-soft); font-size: 0.8rem; }
+.admin-gear-count { color: var(--accent); font-size: 0.8rem; }
 
 .admin-gear-toolbar {
   display: grid;
@@ -33,7 +33,7 @@
 .admin-gear-status { position: absolute; top: 0.8rem; left: 0.8rem; padding: 0.3rem 0.5rem; border: 1px solid rgb(74 222 128 / 35%); border-radius: 3px; background: rgb(10 10 10 / 72%); color: var(--success); font-family: var(--font-mono); font-size: 0.65rem; text-transform: uppercase; }
 .admin-gear-content { padding: 1.1rem; }
 .admin-gear-card-top { display: flex; align-items: center; justify-content: space-between; gap: 0.8rem; }
-.admin-gear-card-top strong { color: var(--accent-soft); font-family: var(--font-mono); font-size: 0.85rem; }
+.admin-gear-card-top strong { color: var(--accent); font-family: var(--font-mono); font-size: 0.85rem; }
 .admin-gear-card-top small { color: var(--text-muted); font-size: 0.65rem; font-weight: 400; }
 .admin-gear-content h2 { margin: 0.55rem 0 0.45rem; font-size: 1.05rem; }
 .admin-gear-content p { display: -webkit-box; min-height: 4.2rem; margin: 0; overflow: hidden; color: var(--text-muted); font-size: 0.8rem; line-height: 1.55; -webkit-box-orient: vertical; -webkit-line-clamp: 3; }

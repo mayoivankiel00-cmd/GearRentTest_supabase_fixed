@@ -3,6 +3,7 @@ import { supabase } from './supabaseClient';
 
 const AuthContext = createContext(null);
 const PENDING_SIGNUP_KEY = 'gearRentPendingSignup';
+const GOOGLE_USER_KEY = 'gearRentGoogleUser';
 
 function normalizeEmail(email) {
   return typeof email === 'string' ? email.trim().toLowerCase() : '';
@@ -11,6 +12,14 @@ function normalizeEmail(email) {
 function readPendingSignup() {
   try {
     return JSON.parse(window.sessionStorage.getItem(PENDING_SIGNUP_KEY) || 'null');
+  } catch {
+    return null;
+  }
+}
+
+function readGoogleUser() {
+  try {
+    return JSON.parse(window.localStorage.getItem(GOOGLE_USER_KEY) || 'null');
   } catch {
     return null;
   }
@@ -44,17 +53,19 @@ async function fetchProfile(userId) {
 }
 
 export function AuthProvider({ children }) {
-  const [isAuthenticated, setIsAuthenticated] = useState(false);
-  const [user, setUser] = useState(null);
+  const [user, setUser] = useState(readGoogleUser);
+  const [isAuthenticated, setIsAuthenticated] = useState(() => Boolean(readGoogleUser()));
   const [loading, setLoading] = useState(true);
   const [pendingSignup, setPendingSignupState] = useState(readPendingSignup);
 
   const loadSession = useCallback(async (session) => {
     if (!session?.user) {
-      setUser(null);
-      setIsAuthenticated(false);
+      const googleUser = readGoogleUser();
+      setUser(googleUser);
+      setIsAuthenticated(Boolean(googleUser));
       return;
     }
+    window.localStorage.removeItem(GOOGLE_USER_KEY);
     const profile = await fetchProfile(session.user.id);
     setUser(mapProfileToUser(session.user, profile));
     setIsAuthenticated(true);
@@ -77,6 +88,25 @@ export function AuthProvider({ children }) {
       subscription.unsubscribe();
     };
   }, [loadSession]);
+
+  const login = useCallback((googleUser) => {
+    const persistedUser = {
+      ...googleUser,
+      provider: 'google',
+      role: 'customer',
+      tier: 'Gear Renter',
+      balance: 0,
+      phone: '',
+      address: '',
+      city: '',
+      province: '',
+      postalCode: '',
+      createdAt: Date.now(),
+    };
+    window.localStorage.setItem(GOOGLE_USER_KEY, JSON.stringify(persistedUser));
+    setUser(persistedUser);
+    setIsAuthenticated(true);
+  }, []);
 
   // Checks whether an account already exists for this email. Mainly useful
   // for inline validation — sign-up itself still relies on Supabase's own
@@ -153,11 +183,14 @@ export function AuthProvider({ children }) {
     return true;
   }, []);
 
-  const signOut = useCallback(async () => {
+  const logout = useCallback(async () => {
     await supabase.auth.signOut();
+    window.localStorage.removeItem(GOOGLE_USER_KEY);
     setUser(null);
     setIsAuthenticated(false);
   }, []);
+
+  const signOut = logout;
 
   // Merges and persists partial updates to the signed-in user's own profile.
   // Applies the change to local state immediately (optimistic update) and
@@ -203,6 +236,8 @@ export function AuthProvider({ children }) {
     accountExists,
     createAccount,
     authenticate,
+    login,
+    logout,
     creditAccount,
     signOut,
     updateUser,

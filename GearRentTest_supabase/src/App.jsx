@@ -50,13 +50,12 @@ function ProviderRoute({ children }) {
   return isAuthenticated && isGearProvider(user) ? children : <Navigate to="/profile" replace />;
 }
 
-// Gear Rent has no separate admin login flow yet — for now, admin pages just
-// require a signed-in account rather than being open to anyone with the URL.
-// If a real admin role is introduced later, this is the place to check it.
 function AdminRoute({ children }) {
-  const { isAuthenticated } = useAuth();
+  const { isAuthenticated, user, loading } = useAuth();
 
-  return isAuthenticated ? children : <Navigate to="/signin" replace />;
+  if (loading) return null;
+  if (!isAuthenticated) return <Navigate to="/signin" replace />;
+  return user?.role === 'admin' ? children : <Navigate to="/profile" replace />;
 }
 
 export default function App() {

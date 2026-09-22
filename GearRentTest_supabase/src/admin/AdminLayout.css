@@ -32,7 +32,7 @@
   font-weight: 800;
   font-size: 1.25rem;
   letter-spacing: -0.01em;
-  color: var(--accent-soft);
+  color: var(--accent);
   white-space: nowrap;
 }
 
@@ -50,7 +50,7 @@
   padding: 0.2rem 0.35rem;
   border: 1px solid color-mix(in srgb, var(--accent) 65%, transparent);
   border-radius: 3px;
-  color: var(--accent-soft);
+  color: var(--accent);
   font-family: var(--font-mono);
   font-size: 0.58rem;
   letter-spacing: 0.08em;
@@ -89,7 +89,7 @@
 }
 
 .admin-search input:focus {
-  border-color: var(--accent-soft);
+  border-color: var(--accent);
 }
 
 .admin-topbar-actions {
@@ -157,7 +157,7 @@
 .admin-notification-clear {
   border: 0;
   background: transparent;
-  color: var(--accent-soft);
+  color: var(--accent);
   cursor: pointer;
   font: inherit;
   font-size: 0.75rem;
@@ -299,7 +299,7 @@
 }
 
 .admin-nav a.active {
-  color: var(--accent-soft);
+  color: var(--accent);
   background: linear-gradient(90deg, color-mix(in srgb, var(--accent) 16%, transparent), transparent);
   border-color: color-mix(in srgb, var(--accent) 30%, transparent);
 }

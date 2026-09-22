@@ -43,7 +43,7 @@
 }
 
 .auth-visual-copy .eyebrow {
-  color: var(--accent-soft);
+  color: var(--accent);
 }
 
 .auth-visual-copy h1 {
@@ -72,7 +72,7 @@
   font-family: var(--font-display);
   font-weight: 800;
   font-size: 1.6rem;
-  color: var(--accent-soft);
+  color: var(--accent);
 }
 
 .auth-heading .eyebrow {
@@ -113,7 +113,7 @@
 }
 
 .field-row a {
-  color: var(--accent-soft);
+  color: var(--accent);
   font-size: 0.75rem;
 }
 
@@ -152,9 +152,46 @@
   margin-top: 0.4rem;
 }
 
+.auth-divider {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  margin: 1.2rem 0;
+  color: var(--text-muted);
+  font-family: var(--font-mono);
+  font-size: 0.68rem;
+}
+
+.auth-divider::before,
+.auth-divider::after {
+  flex: 1;
+  height: 1px;
+  background: var(--border);
+  content: '';
+}
+
+.google-login-control {
+  width: 100%;
+}
+
+.google-login-control > div,
+.google-login-control iframe {
+  width: 100% !important;
+}
+
+.google-login-error {
+  max-width: none;
+  margin: 0.45rem 0 0;
+  color: var(--accent);
+  font-family: var(--font-mono);
+  font-size: 0.68rem;
+  line-height: 1.3;
+  text-align: center;
+}
+
 .auth-error {
   margin: -0.2rem 0 1.1rem;
-  color: var(--accent-soft);
+  color: var(--accent);
   font-size: 0.8rem;
 }
 
@@ -172,7 +209,7 @@
 }
 
 .auth-footer-line a {
-  color: var(--accent-soft);
+  color: var(--accent);
   font-weight: 600;
 }
 

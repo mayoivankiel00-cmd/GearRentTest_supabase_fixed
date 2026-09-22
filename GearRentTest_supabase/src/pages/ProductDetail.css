@@ -40,7 +40,7 @@
   top: 0.9rem;
   right: 0.9rem;
   background: var(--accent);
-  color: #fff;
+  color: var(--on-accent, #fff);
   font-size: 0.66rem;
   padding: 0.3rem 0.6rem;
   border-radius: 2px;
@@ -150,7 +150,7 @@
   font-family: var(--font-mono);
   font-size: 1.4rem;
   font-weight: 700;
-  color: var(--accent-soft);
+  color: var(--accent);
   display: flex;
   align-items: baseline;
   gap: 0.4rem;
@@ -241,7 +241,7 @@
 
 .calendar-cell.selected {
   background: var(--accent);
-  color: #fff;
+  color: var(--on-accent, #fff);
 }
 
 .calendar-hint {

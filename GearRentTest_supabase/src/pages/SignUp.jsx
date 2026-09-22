@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { useAuth } from '../AuthContext';
+import GoogleLoginButton from '../components/GoogleLoginButton';
 import './Auth.css';
 
 export default function SignUp() {
@@ -87,6 +88,9 @@ export default function SignUp() {
             <button type="submit" className="btn btn-primary btn-block auth-submit">
               Create Account →
             </button>
+
+            <div className="auth-divider"><span>OR</span></div>
+            <GoogleLoginButton text="signup_with" />
 
             <p className="auth-footer-line">
               Already have an account? <Link to="/signin">Log In</Link>

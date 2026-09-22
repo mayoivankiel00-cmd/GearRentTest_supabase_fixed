@@ -1,16 +1,19 @@
 .product-card {
   position: relative;
-  background: var(--bg-card);
+  background: var(--surface, var(--bg-card));
   border: 1px solid var(--border);
   border-radius: 4px;
   overflow: visible;
   display: flex;
   flex-direction: column;
-  transition: border-color 0.15s ease;
+  box-shadow: var(--shadow, none);
+  transition: transform 0.15s ease, border-color 0.15s ease, box-shadow 0.15s ease;
 }
 
 .product-card:hover {
   border-color: var(--border-hover);
+  transform: translateY(-2px);
+  box-shadow: var(--shadow, none);
 }
 
 .product-card-media {
@@ -55,7 +58,7 @@
 
 .status-available {
   background: var(--accent);
-  color: #fff;
+  color: var(--on-accent, #fff);
 }
 
 .status-booked {
@@ -85,12 +88,12 @@
 }
 
 .product-card-name:hover {
-  color: var(--accent-soft);
+  color: var(--accent);
 }
 
 .product-card-price {
   font-family: var(--font-mono);
-  color: var(--accent-soft);
+  color: var(--accent);
   font-weight: 600;
   white-space: nowrap;
   font-size: 0.95rem;

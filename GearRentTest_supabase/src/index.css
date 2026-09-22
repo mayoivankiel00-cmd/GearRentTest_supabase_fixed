@@ -14,6 +14,10 @@
   --accent-soft: #f4a89e;
   --success: #4ade80;
   --warn: #f59e0b;
+  --ink: #0a0a0a;
+  --on-ink: #f2f0ed;
+  --on-ink-muted: #9a9a97;
+  --on-accent: #fff;
 
   --font-display: 'Archivo', system-ui, sans-serif;
   --font-mono: 'IBM Plex Mono', 'SFMono-Regular', Menlo, monospace;
@@ -22,17 +26,28 @@
 }
 
 :root[data-theme='light'] {
-  --bg: #969794;
-  --bg-raised: #a4a5a1;
-  --bg-card: #b4b5b1;
-  --border: #777873;
-  --border-hover: #60615d;
-  --text: #111210;
-  --text-muted: #292a27;
-  --text-dim: #41423e;
-  --accent-soft: #8f1d19;
-  --success: #198754;
-  --warn: #a15c00;
+  --bg: #F3F0EA;
+  --surface: #FFFFFF;
+  --surface-alt: #F8F6F2;
+  --border: #DDD6CC;
+  --text: #16130F;
+  --text-secondary: #4A443D;
+  --text-muted: #7A7267;
+  --accent: #D92D20;
+  --accent-hover: #B42318;
+  --accent-soft: #FDECEA;
+  --ink: #14110F;
+  --on-ink: #F5F1EA;
+  --on-ink-muted: #A8A095;
+  --on-accent: #FFFFFF;
+  --shadow: 0 1px 2px rgba(22,19,15,0.06), 0 6px 16px rgba(22,19,15,0.06);
+
+  --bg-raised: var(--surface-alt);
+  --bg-card: var(--surface);
+  --border-hover: #B8AEA2;
+  --text-dim: var(--text-muted);
+  --success: #167A45;
+  --warn: #8A4B00;
   color-scheme: light;
 }
 
@@ -48,8 +63,7 @@ html, body {
 }
 
 :root[data-theme='light'] body {
-  background: linear-gradient(135deg, #929390 0%, #a1a29e 48%, #8e8f8c 100%);
-  background-attachment: fixed;
+  background: var(--bg);
 }
 
 body {
@@ -109,7 +123,7 @@ button, input, select {
 
 .btn-primary {
   background: var(--accent);
-  color: #fff;
+  color: var(--on-accent, #fff);
 }
 .btn-primary:hover { background: var(--accent-hover); }
 .btn-primary:disabled {
@@ -128,9 +142,16 @@ button, input, select {
 .btn-block { width: 100%; }
 
 .card {
-  background: var(--bg-card);
+  background: var(--surface, var(--bg-card));
   border: 1px solid var(--border);
   border-radius: 4px;
+  box-shadow: var(--shadow, none);
+  transition: transform 0.15s ease, box-shadow 0.15s ease, border-color 0.15s ease;
+}
+
+.card:hover {
+  transform: translateY(-2px);
+  box-shadow: var(--shadow, none);
 }
 
 .container {
