@@ -1,5 +1,4 @@
 import { useEffect, useState } from 'react';
-import { googleLogout } from '@react-oauth/google';
 import { Link, NavLink, useNavigate } from 'react-router-dom';
 import { useAuth } from '../AuthContext';
 import { useCart } from '../CartContext';
@@ -28,7 +27,6 @@ export default function Navbar() {
     .toUpperCase();
 
   const handleSignOut = () => {
-    if (user?.provider === 'google') googleLogout();
     signOut();
     navigate('/');
   };

@@ -3,7 +3,6 @@ import { supabase } from './supabaseClient';
 
 const AuthContext = createContext(null);
 const PENDING_SIGNUP_KEY = 'gearRentPendingSignup';
-const GOOGLE_USER_KEY = 'gearRentGoogleUser';
 
 function normalizeEmail(email) {
   return typeof email === 'string' ? email.trim().toLowerCase() : '';
@@ -17,20 +16,14 @@ function readPendingSignup() {
   }
 }
 
-function readGoogleUser() {
-  try {
-    return JSON.parse(window.localStorage.getItem(GOOGLE_USER_KEY) || 'null');
-  } catch {
-    return null;
-  }
-}
-
 function mapProfileToUser(authUser, profile) {
   if (!authUser) return null;
   return {
+    ...authUser,
     id: authUser.id,
     email: authUser.email,
-    name: profile?.name || '',
+    name: profile?.name || authUser.user_metadata?.name || '',
+    picture: authUser.user_metadata?.avatar_url || '',
     tier: profile?.tier || 'Gear Renter',
     role: profile?.role || 'customer',
     balance: Number(profile?.balance) || 0,
@@ -53,60 +46,39 @@ async function fetchProfile(userId) {
 }
 
 export function AuthProvider({ children }) {
-  const [user, setUser] = useState(readGoogleUser);
-  const [isAuthenticated, setIsAuthenticated] = useState(() => Boolean(readGoogleUser()));
+  const [user, setUser] = useState(null);
+  const [isAuthenticated, setIsAuthenticated] = useState(false);
   const [loading, setLoading] = useState(true);
   const [pendingSignup, setPendingSignupState] = useState(readPendingSignup);
 
-  const loadSession = useCallback(async (session) => {
-    if (!session?.user) {
-      const googleUser = readGoogleUser();
-      setUser(googleUser);
-      setIsAuthenticated(Boolean(googleUser));
+  const loadUser = useCallback(async (authUser) => {
+    if (!authUser) {
+      setUser(null);
+      setIsAuthenticated(false);
       return;
     }
-    window.localStorage.removeItem(GOOGLE_USER_KEY);
-    const profile = await fetchProfile(session.user.id);
-    setUser(mapProfileToUser(session.user, profile));
+    const profile = await fetchProfile(authUser.id);
+    setUser(mapProfileToUser(authUser, profile));
     setIsAuthenticated(true);
   }, []);
 
   useEffect(() => {
     let isMounted = true;
 
-    supabase.auth.getSession().then(({ data: { session } }) => {
+    supabase.auth.getUser().then(({ data: { user: authUser } }) => {
       if (!isMounted) return;
-      loadSession(session).finally(() => setLoading(false));
+      loadUser(authUser).finally(() => setLoading(false));
     });
 
     const { data: { subscription } } = supabase.auth.onAuthStateChange((_event, session) => {
-      loadSession(session);
+      loadUser(session?.user || null);
     });
 
     return () => {
       isMounted = false;
       subscription.unsubscribe();
     };
-  }, [loadSession]);
-
-  const login = useCallback((googleUser) => {
-    const persistedUser = {
-      ...googleUser,
-      provider: 'google',
-      role: 'customer',
-      tier: 'Gear Renter',
-      balance: 0,
-      phone: '',
-      address: '',
-      city: '',
-      province: '',
-      postalCode: '',
-      createdAt: Date.now(),
-    };
-    window.localStorage.setItem(GOOGLE_USER_KEY, JSON.stringify(persistedUser));
-    setUser(persistedUser);
-    setIsAuthenticated(true);
-  }, []);
+  }, [loadUser]);
 
   // Checks whether an account already exists for this email. Mainly useful
   // for inline validation — sign-up itself still relies on Supabase's own
@@ -143,14 +115,13 @@ export function AuthProvider({ children }) {
     }
 
     if (data.session) {
-      await loadSession(data.session);
+      await loadUser(data.user);
     }
 
     return { success: true, needsEmailConfirmation: !data.session };
-  }, [loadSession]);
+  }, [loadUser]);
 
-  // Returns the signed-in user on success, or null on failure (mirrors the
-  // original localStorage-backed behavior so SignIn.jsx barely has to change).
+  // Returns the signed-in user on success, or null on failure.
   const authenticate = useCallback(async (email, password) => {
     const { data, error } = await supabase.auth.signInWithPassword({
       email: normalizeEmail(email),
@@ -158,10 +129,10 @@ export function AuthProvider({ children }) {
     });
     if (error || !data.user) return null;
 
-    await loadSession(data.session);
+    await loadUser(data.user);
     const profile = await fetchProfile(data.user.id);
     return mapProfileToUser(data.user, profile);
-  }, [loadSession]);
+  }, [loadUser]);
 
   // Credits ANOTHER user's balance by email (e.g. paying out a gear
   // provider). This can't be a direct table write under RLS — only the
@@ -185,7 +156,6 @@ export function AuthProvider({ children }) {
 
   const logout = useCallback(async () => {
     await supabase.auth.signOut();
-    window.localStorage.removeItem(GOOGLE_USER_KEY);
     setUser(null);
     setIsAuthenticated(false);
   }, []);
@@ -236,7 +206,6 @@ export function AuthProvider({ children }) {
     accountExists,
     createAccount,
     authenticate,
-    login,
     logout,
     creditAccount,
     signOut,

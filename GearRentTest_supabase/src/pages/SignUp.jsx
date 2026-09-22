@@ -28,7 +28,7 @@ export default function SignUp() {
 
     if (!result.success) {
       const message = result.error?.toLowerCase().includes('registered')
-        ? 'An account already exists for this email. Please log in instead.'
+        ? 'This email is already in use'
         : result.error || 'Unable to create the account. Please try again.';
       setErrorMessage(message);
       return;
