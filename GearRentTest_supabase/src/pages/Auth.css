@@ -174,9 +174,39 @@
   width: 100%;
 }
 
-.google-login-control > div,
-.google-login-control iframe {
-  width: 100% !important;
+.google-login-button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.7rem;
+  min-height: 2.85rem;
+  padding: 0.75rem 1rem;
+  border: 1px solid var(--border-hover);
+  border-radius: 3px;
+  background: var(--bg-raised);
+  color: var(--text);
+  font-family: var(--font-mono);
+  font-size: 0.76rem;
+  font-weight: 600;
+  letter-spacing: 0.03em;
+  text-transform: uppercase;
+  cursor: pointer;
+  transition: background 0.15s ease, border-color 0.15s ease, transform 0.1s ease;
+}
+
+.google-login-button:hover {
+  border-color: var(--text-muted);
+  background: var(--bg-card);
+}
+
+.google-login-button:active {
+  transform: translateY(1px);
+}
+
+.google-login-mark {
+  flex: 0 0 auto;
+  width: 1.1rem;
+  height: 1.1rem;
 }
 
 .google-login-error {
